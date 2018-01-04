@@ -15,17 +15,16 @@ button {
   padding: 3px 15px;
 }
 
-.item {
-	
-}
-
 p {
 	color: white;
-	margin-top: 15px;
+	margin-top: 30px;
+	line-height: 2px;
 }
 
 form {
 	color: white;
+	padding: 5px;
+	border: 1px solid black;
 }
 
 #add-animal {
@@ -37,4 +36,6 @@ form {
 
 h6 {
 	color: white;
+	font-weight: normal;
+	margin-left: 20px;
 }

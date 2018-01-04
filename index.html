@@ -9,22 +9,25 @@
 </head>
 
 <body>
-  <h1>Animal Gifs</h1>
-  <div class="row" id="buttons"></div><br>
-
   <div class="row">
-    <div class="col-10" id="gifs-appear-here">
-      <h6>Click any animal button to play gif, or on the right hand side enter any animals you would like to add to the mix.</h6>
+    <div class="col-9">
+      <h1>Animal Gifs</h1>
+      <div id="buttons"></div>
     </div>
-    <div class="col-2">
+    <div class="col-3">
       <form id="animal-form">
-          <label for="animal-input">Add an Animal</label><br>
-          <input type="text" id="animal-input"><br>
+            <label for="animal-input">Add an Animal</label><br>
+            <input type="text" id="animal-input"><br>
 
-          <!-- Button triggers new movie to be added -->
-          <input id="add-animal" type="submit" value="Submit">
+            <!-- Button triggers new movie to be added -->
+            <input id="add-animal" type="submit" value="Submit">
       </form>
     </div>
+  </div>
+
+  <div class="row">
+    <h6>Click any animal button to play gif, or on the right hand side enter any animals you would like to add to the mix.</h6>
+    <div class="col-12" id="gifs-appear-here"></div>
   </div>
   
 
