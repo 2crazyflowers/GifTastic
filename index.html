@@ -13,19 +13,36 @@
 </head>
 
 <body>
-  <div id="buttons"></div> 
+  <div id="buttons"></div><br>
+
+  <form id="animal-form">
+      <label for="animal-input">Add an Animal</label>
+      <input type="text" id="animal-input"><br>
+
+      <!-- Button triggers new movie to be added -->
+      <input id="add-animal" type="submit" value="Submit">
+  </form>
+
   <div id="gifs-appear-here"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
 
-    
-    
     //create variable named topics to contain string of animals
-      var topics = ["dog", "cat", "rabbit", "turtle", "fish", "squirrel", "deer", "skunk", "bear", "snake", "salamandor"]
-      //want to pull data-animal from variable
+    var topics = ["dog", "cat", "rabbit", "turtle", "fish", "squirrel", "deer", "skunk", "bear", "snake", "salamandor"];
+  
+
+    function renderButtons() {
+    //want to pull data-animal from variable
+    
+      //have to empty the buttons so they do not add all after another animal is added
+      $("#buttons").empty();
+
+      //how do you empty the box of previously added animals???
+      $("#animal-input").empty();
+
       //create a for-loop to iterate through the topics array
-      for (var i=0; i < topics.length; i++){
+      for (var i=0; i < topics.length; i++) {
         //create a variable equal to button
         var animalBtn = $("<button>");
 
@@ -43,13 +60,37 @@
 
         //then append each animalBtn to the buttons div
         $("#buttons").append(animalBtn);
+
+        console.log(topics[i]);
       }
-      
+    }
+
+    $("#add-animal").on("click", function(event) {
+      // event.preventDefault() prevents the form from trying to submit itself.
+      // We're using a form so that the user can hit enter instead of clicking the button if they want
+      event.preventDefault();
+
+      // This line will grab the text from the input box
+      var topic = $("#animal-input").val().trim();
+
+      // The animal from the textbox is then added to our array
+      topics.push(topic);
+
+      // call renderButtons which handles the processing of topics
+      renderButtons();
+
+    });
+
+    // Call the renderButtons function at least once to display the initial list of animals
+    renderButtons();
+
       //on click event
-      $("#buttons").on("click", function() {
+    $("#buttons").on("click", function() {
+      
       console.log(this);
 
       var animal = $(this).attr("data-animal");
+      console.log(animal);
       //
       var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=WtL7a88I6lDSvslFMP2JlDT1WvGXcUET&limit=10";
 
@@ -62,6 +103,7 @@
       //
       .done(function(response) {
 
+        console.log(response);
         //
         var results = response.data;
 
@@ -75,31 +117,36 @@
           var p = $("<p>").text("Rating: " + rating);
 
           var animalImage = $("<img>");
+
           animalImage.attr("src", results[i].images.fixed_height_still.url);
 
           gifDiv.prepend(p);
+
           gifDiv.prepend(animalImage);
 
           $("#gifs-appear-here").prepend(gifDiv);
-          console.log(response);
+          
+          $("img").on("click", function() {
 
-          var state = $(this).attr("data-state");
+            var state = $(this).attr("data-state");
 
-          if (state === "still") {
-            $(this).attr("src", results[i].images.fixed_height.url);
-            $(this).attr("data-state", "animate");
-          }
+            if (state === "still") {
+              $(this).attr("src", results[i].images.fixed_height.url);
+              $(this).attr("data-state", "animate");
+            }
 
-          else {
-            $(this).attr("src", results[i].images.fixed_height_still.url);
-            $(this).attr("data-state", "still");
+            else {
+              $(this).attr("src", results[i].images.fixed_height_still.url);
+              $(this).attr("data-state", "still");
 
-          }
-        }
-
-      });
+            }
+        });
+      }
     });
+  });
+
   </script>
+
 </body>
 
 </html>
