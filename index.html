@@ -4,44 +4,54 @@
 <head>
   <meta charset="utf-8">
   <title>GifTastic</title>
+  <style>
+    button {
+      background-color: blue;
+      color: white;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="buttons">
-    <button data-animal="dog">dog</button>
-    <button data-animal="cat">cat</button>
-    <button data-animal="rabbit">rabbit</button>
-    <button data-animal="hamster">hamster</button>
-    <button data-animal="skunk">skunk</button>
-    <button data-animal="goldfish">goldfish</button>
-    <button data-animal="bird">bird</button>
-    <button data-animal="ferret">ferret</button>
-    <button data-animal="turtle">turtle</button>
-    <button data-animal="sugar glider">sugar glider</button>  
-    <button data-animal="chinchilla">chinchilla</button>
-    <button data-animal="hedgehog">hedgehog</button>
-    <button data-animal="hermit crab">hermit crab</button>
-    <button data-animal="gerbill">gerbill</button>
-    <button data-animal="pygmy goat">pygmy goat</button>
-    <button data-animal="chicken">chicken</button>
-    <button data-animal="crapybara">crapybara</button>
-    <button data-animal="teacup pig">teacup pig</button>
-    <button data-animal="serval">serval</button>
-    <button data-animal="salamandor">salamandor</button>  
-    <button data-animal="frog">frog</button> 
-  </div> 
-  
-  <div id="gifs-appear-here">
-
-  </div>
+  <div id="buttons"></div> 
+  <div id="gifs-appear-here"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
-    //
-    $("button").on("click", function() {
+
+    
+    
+    //create variable named topics to contain string of animals
+      var topics = ["dog", "cat", "rabbit", "turtle", "fish", "squirrel", "deer", "skunk", "bear", "snake", "salamandor"]
+      //want to pull data-animal from variable
+      //create a for-loop to iterate through the topics array
+      for (var i=0; i < topics.length; i++){
+        //create a variable equal to button
+        var animalBtn = $("<button>");
+
+        //give each animalBtn its classes=======are these needed?
+        // animalBtn.addClass("letter-button letter letter-button-color");
+
+        //then give each animalBtn a data-attribute called data-animal
+        animalBtn.attr("data-animal", topics[i]);
+
+        //then give each animalBtn a data-attribute called data-state and still
+        animalBtn.attr("data-state", "still");
+
+        //then give each animalBtn text equal to its name
+        animalBtn.text(topics[i]);
+
+        //then append each animalBtn to the buttons div
+        $("#buttons").append(animalBtn);
+      }
+      
+      //on click event
+      $("#buttons").on("click", function() {
+      console.log(this);
+
       var animal = $(this).attr("data-animal");
       //
-      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=WtL7a88I6lDSvslFMP2JlDT1WvGXcUET&limit=10";
+      var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=WtL7a88I6lDSvslFMP2JlDT1WvGXcUET&limit=10";
 
       //
       $.ajax({
@@ -72,6 +82,19 @@
 
           $("#gifs-appear-here").prepend(gifDiv);
           console.log(response);
+
+          var state = $(this).attr("data-state");
+
+          if (state === "still") {
+            $(this).attr("src", results[i].images.fixed_height.url);
+            $(this).attr("data-state", "animate");
+          }
+
+          else {
+            $(this).attr("src", results[i].images.fixed_height_still.url);
+            $(this).attr("data-state", "still");
+
+          }
         }
 
       });
