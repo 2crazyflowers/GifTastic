@@ -44,7 +44,7 @@ function displayImages() {
     console.log("this: " + this);
     console.log("animal: " + animal);
     //
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=WtL7a88I6lDSvslFMP2JlDT1WvGXcUET&limit=10";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animal + "&api_key=WtL7a88I6lDSvslFMP2JlDT1WvGXcUET&limit=10";
 
     //
     $.ajax({
@@ -81,7 +81,7 @@ function displayImages() {
 
         animalImage.attr("data-animate", results[i].images.fixed_height.url);
 
-        animalImage.addClass("gif");
+        animalImage.addClass("gif float-left m-2");
 
         gifDiv.prepend(animalImage);
         gifDiv.prepend(p);
