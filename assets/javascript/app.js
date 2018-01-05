@@ -62,7 +62,7 @@ function displayImages() {
       //want to see 10 gifs each time button pressed
       for (var i = 0; i < results.length; i++) {
         //create variable with a div to put image and rating in
-        var gifDiv = $("<div class='item'>");
+        var gifDiv = $("<div class='item float-left'>");
 
         //variable created to hold rating of specific gif
         var rating = results[i].rating;
@@ -81,7 +81,7 @@ function displayImages() {
 
         animalImage.attr("data-animate", results[i].images.fixed_height.url);
 
-        animalImage.addClass("gif float-left m-2");
+        animalImage.addClass("gif");
 
         gifDiv.prepend(animalImage);
         gifDiv.prepend(p);
