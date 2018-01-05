@@ -5,12 +5,12 @@ var animalImage;
 
 function renderButtons() {
 //want to pull data-animal from variable
-
+  
   //have to empty the buttons so they do not add all after another animal is added
   $("#buttons").empty();
 
-  //how do you empty the box of previously added animals???
-  $("#animal-input").empty();
+  //empty the box of previously added animals
+  $("#animal-input").val("");
 
   //create a for-loop to iterate through the topics array
   for (var i=0; i < topics.length; i++) {
@@ -61,6 +61,7 @@ function displayImages() {
 
       //want to see 10 gifs each time button pressed
       for (var i = 0; i < results.length; i++) {
+        
         //create variable with a div to put image and rating in
         var gifDiv = $("<div class='item float-left'>");
 
@@ -70,26 +71,36 @@ function displayImages() {
         //put rating on html in paragraph
         var p = $("<p>").text("Rating: " + rating);
 
-
+        //create variable called animalImage and put into image element
         var animalImage = $("<img>");
 
+        //give animalImage src and image information
         animalImage.attr("src", results[i].images.fixed_height_still.url);
 
+        //give animalImage data-state information to allow image to be in still state
         animalImage.attr("data-state", "still");
 
+        //give animalImage data-still image information to allow image to be in still state
         animalImage.attr("data-still", results[i].images.fixed_height_still.url);
 
+        //give animalImage data-animate image information so when clicked it will play gif
         animalImage.attr("data-animate", results[i].images.fixed_height.url);
 
+        //add a class to animalImage
         animalImage.addClass("gif");
 
+
+        //for each image/paragraph prepend to div 
         gifDiv.prepend(animalImage);
         gifDiv.prepend(p);
 
+
+        //put image and image div on browser
         $("#gifs-appear-here").prepend(gifDiv);
         
       }
 
+      //click function on gif to allow user to play the gif
       $(".gif").on("click", function() {
 
         var state = $(this).attr("data-state");
@@ -111,14 +122,14 @@ function displayImages() {
 
 //this allows user to add new animal to list
 $("#add-animal").on("click", function(event) {
-  // event.preventDefault() prevents the form from trying to submit itself.
-  // We're using a form so that the user can hit enter instead of clicking the button if they want
+  //event.preventDefault() prevents the form from trying to submit itself
+  //form used so that the user can hit enter instead of clicking the button if they want
   event.preventDefault();
 
-  // This line will grab the text from the input box and trim any extra spaces entered
+  //grab the text from the input box and trim any extra spaces entered
   var newTopic = $("#animal-input").val().trim();
 
-  // The animal from the textbox is then added to our array
+  //takes animal entered from the textbox and adds it to our array of topics
   topics.push(newTopic);
 
   // call renderButtons which handles the processing of topics
@@ -126,7 +137,8 @@ $("#add-animal").on("click", function(event) {
 
 });
 
-// Call the renderButtons function at least once to display the initial list of animals
+//renderButtons function called to display the initial list of animals
 renderButtons();
 
+// click event on the animal-btn to listen for which animal user pics
 $(document).on("click", ".animal-btn", displayImages);

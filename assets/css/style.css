@@ -15,6 +15,10 @@ button {
   padding: 3px 15px;
 }
 
+#buttons {
+	margin-top: 20px;
+}
+
 p {
 	color: white;
 	margin-top: 30px;
@@ -23,8 +27,8 @@ p {
 
 form {
 	color: white;
-	padding: 5px;
-	border: 1px solid black;
+	padding: 15px;
+	border: 2px solid black;
 }
 
 #add-animal {
@@ -37,9 +41,27 @@ form {
 h6 {
 	color: white;
 	font-weight: normal;
-	margin-left: 20px;
+	margin-left: 5px;
+	margin-top: 20px;
 }
 
 .item {
-	margin: 10px;
+	margin-right: 20px;
+}
+
+.gif {
+	border: 3px solid blue;
+}
+
+
+@media screen and (max-width: 640px) {
+
+	h6 {
+		margin-top: 30px;
+	}
+
+	form {
+		margin-top: 20px;
+	}
+
 }
