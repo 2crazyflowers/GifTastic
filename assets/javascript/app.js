@@ -33,12 +33,14 @@ function renderButtons() {
   }
 }
 
-//this function displays images of the animal chosen by user
+//this function displays images of the animal chosen by user and is activated when user clicks animal-btn
 function displayImages() {
+  //for some reason this is doubled etc if buttons are hit without refreshing page=====================================why??
   //clear previous images that have been displayed
+  $("#gifs-appear-here").empty();
   $(".item").empty();
 
-  $(".animal-btn").on("click", function() {
+  // $(".animal-btn").on("click", function() {
 
     var animal = $(this).attr("data-animal");
     console.log("this: " + this);
@@ -61,7 +63,7 @@ function displayImages() {
 
       //want to see 10 gifs each time button pressed
       for (var i = 0; i < results.length; i++) {
-        
+        console.log("results.length: " + results.length);
         //create variable with a div to put image and rating in
         var gifDiv = $("<div class='item float-left'>");
 
@@ -117,8 +119,8 @@ function displayImages() {
       });
     });
   
-  });
-}
+  }
+
 
 //this allows user to add new animal to list
 $("#add-animal").on("click", function(event) {
